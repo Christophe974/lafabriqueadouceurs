@@ -1,0 +1,18 @@
+@charset "UTF-8";
+/* CSS Document */
+/* Styles de base */
+:root {
+    --primary-color: #ff9eb3;
+    --secondary-color: #704c54;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    background-color: #fff5f7;
+}
+
+h1 {
+    color: var(--primary-color);
+    text-align: center;
+}
