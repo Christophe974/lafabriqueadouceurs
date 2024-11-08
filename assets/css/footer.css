@@ -1,0 +1,267 @@
+@charset "UTF-8";
+/* CSS Document */
+/* Footer Styles */
+.main-footer {
+    background-color: var(--secondary);
+    color: var(--background);
+    padding: 4rem 0 2rem;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Logo */
+.footer-logo {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.footer-logo img {
+    max-width: 200px;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.footer-logo img:hover {
+    transform: scale(1.05);
+}
+
+/* Grille de contenu */
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+/* Sections avec animation */
+.footer-section {
+    text-align: center;
+    padding: 2rem;
+    transition: all 0.3s var(--bezier-smooth);
+    position: relative;
+    border-radius: 10px;
+}
+
+/* Effet de survol sur les sections */
+.footer-section:hover {
+    transform: translateY(-10px);
+}
+
+/* Trait rose qui apparaît au survol */
+.footer-section::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.footer-section:hover::before {
+    width: 80%;
+}
+
+/* Titres des sections */
+.footer-section h3 {
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    position: relative;
+}
+
+.footer-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.footer-section:hover h3::after {
+    width: 70px;
+}
+
+/* Section Contact */
+.contact-info {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.contact-info li {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.contact-info i {
+    color: var(--primary);
+    width: auto;
+    min-width: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.contact-info li:hover i {
+    transform: scale(1.2);
+}
+
+/* Liens du footer */
+.main-footer a,
+.main-footer a:link,
+.main-footer a:visited,
+.contact-info a,
+.contact-info a:link,
+.contact-info a:visited {
+    color: var(--background);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.main-footer a:hover,
+.main-footer a:active,
+.contact-info a:hover,
+.contact-info a:active {
+    color: var(--primary);
+}
+
+/* Section Horaires */
+.hours-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.hours-list li {
+    margin-bottom: 0.5rem;
+}
+
+/* Section Réseaux Sociaux */
+.footer-section p {
+    color: var(--background);
+    margin-bottom: 1.5rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.social-link {
+    color: var(--background);
+    font-size: 2.5rem;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    color: var(--primary);
+    transform: translateY(-5px);
+}
+
+/* Copyright */
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom p {
+    color: var(--background);
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .footer-section {
+        padding: 1rem;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .footer-section:hover {
+        transform: none;
+    }
+
+    .footer-logo img {
+        max-width: 180px;
+    }
+
+    .contact-info,
+    .hours-list {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .contact-info li {
+        justify-content: flex-start;
+        text-align: left;
+    }
+
+    .hours-list li {
+        text-align: center;
+    }
+
+    .social-links {
+        margin-top: 1rem;
+    }
+
+    .footer-bottom {
+        margin-top: 3rem;
+    }
+}
+/* Ajout uniquement des styles spécifiques pour la nouvelle section horaires */
+.hours-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    line-height: 1.6;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.hours-text p {
+    margin: 0;
+    padding: 0;
+}
+
+.hours-emphasis {
+    color: var(--primary);
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .hours-text {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}

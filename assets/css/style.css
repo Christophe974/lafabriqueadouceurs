@@ -1,0 +1,474 @@
+/* Variables globales */
+:root {
+    --primary: #ff9eb3;          /* Rose pâtisserie (base) */
+    --primary-dark: #f86982;    /* Rose plus foncé pour le hover */
+    --primary-darker: #cc3960;   /* Rose encore plus foncé */
+    --secondary: #704c54;        /* Marron chocolat */
+    --background: #fff5f7;       /* Fond clair */
+    --text: #2c1810;            /* Texte foncé */
+    --hover-text: #ffffff;       /* Texte blanc */
+    --hover-shadow: rgba(0, 0, 0, 0.2);
+    --transition-fast: 0.2s;
+    --transition-normal: 0.3s;
+    --transition-slow: 0.5s;
+    --bezier-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --bezier-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset et styles de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text);
+    line-height: 1.6;
+    background-color: var(--background);
+}
+
+/* Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Main content */
+main {
+    margin-top: 80px;
+    min-height: calc(100vh - 80px);
+}
+
+/* Header et Navigation */
+.main-header {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-menu > li > a {
+    color: var(--secondary);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.nav-menu > li > a:hover {
+    background-color: var(--primary-dark);
+    color: white;
+}
+
+/* Boutons */
+.btn, .hero-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: white;
+    color: var(--primary-dark);
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.btn:hover, .hero-button:hover {
+    background-color: var(--primary-dark);
+    color: white;
+    border-color: var(--primary-dark);
+}
+
+.btn i, .hero-button i {
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+.btn:hover i, .hero-button:hover i {
+    transform: translateX(5px);
+    color: white;
+}
+
+/* Contact Button Container avec cartouche */
+.contact-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+    position: relative;
+    padding: 2rem;
+    background-color: var(--primary);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(248, 105, 130, 0.2);
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    height: calc(100vh - 80px);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/background/hero.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.3),
+        rgba(248, 105, 130, 0.3)
+    );
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 2rem;
+}
+
+.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Section Présentation */
+.presentation-section {
+    padding: 6rem 0;
+    background-color: white;
+}
+
+.presentation-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.presentation-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text);
+}
+
+.presentation-text p {
+    margin-bottom: 2rem;
+}
+
+/* Highlight */
+.highlight {
+    color: var(--primary-dark);
+    font-weight: 600;
+}
+
+/* Points clés */
+.key-points {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.key-point {
+    text-align: center;
+    padding: 2rem;
+    background: var(--background);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.key-point:hover {
+    transform: translateY(-5px);
+}
+
+.key-point i {
+    font-size: 2.5rem;
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+}
+
+/* CTA Sections */
+.cta-section,
+.gourmandises-cta,
+.kids-cta,
+.illusions-cta,
+.layers-cta,
+.ptitesdouceurs-cta {
+    background: var(--secondary);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.cta-section h2,
+[class*="-cta"] h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.cta-section p,
+[class*="-cta"] p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+/* Galerie */
+.gallery-section {
+    padding: 6rem 0;
+    background-color: white;
+}
+
+.gallery-title {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    color: var(--secondary);
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.gallery-card {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.gallery-image-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.gallery-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-card:hover .gallery-image {
+    transform: scale(1.1);
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+}
+
+/* Sous-menu */
+.has-submenu {
+    position: relative;
+}
+
+.submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    min-width: 200px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all var(--transition-normal) var(--bezier-smooth);
+    padding: 0.5rem;
+    z-index: 1000;
+}
+
+.has-submenu:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.submenu li {
+    list-style: none;
+}
+
+.submenu li a {
+    color: var(--secondary);
+    text-decoration: none;
+    padding: 0.8rem 1rem;
+    display: block;
+    border-radius: 4px;
+    transition: all var(--transition-normal) var(--bezier-smooth);
+}
+
+.submenu li a:hover {
+    background-color: var(--primary-dark);
+    color: var(--hover-text);
+    transform: translateX(5px);
+    text-shadow: 1px 1px 3px var(--hover-shadow);
+    font-weight: 600;
+}
+
+/* Responsive pour sous-menu */
+@media (max-width: 768px) {
+    .submenu {
+        position: static;
+        background: #f8f8f8;
+        min-width: 100%;
+        box-shadow: none;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        display: none;
+    }
+
+    .submenu.active {
+        display: block;
+    }
+
+    .has-submenu:hover .submenu {
+        display: none;
+    }
+
+    .submenu li a {
+        padding: 1rem;
+        border-radius: 0;
+    }
+
+    .submenu li a:hover {
+        transform: none;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .btn, .hero-button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .key-points {
+        grid-template-columns: 1fr;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    [class*="-cta"] h2 {
+        font-size: 2rem;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+
+    .contact-button-container {
+        margin: 2rem 1rem;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .presentation-container {
+        padding: 0 1rem;
+    }
+}
+
+/* Bouton burger pour mobile */
+.burger-menu {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--secondary);
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .burger-menu {
+        display: block;
+    }
+}

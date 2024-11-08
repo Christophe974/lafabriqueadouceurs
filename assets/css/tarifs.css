@@ -1,0 +1,126 @@
+/* CSS pour la page Tarifs */
+.tarifs-hero {
+    height: 400px;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('/lafabriqueadouceurs/assets/images/background/tarifs.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.tarifs-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.tarifs-subtitle {
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.tarifs-section {
+    padding: 6rem 0;
+    background-color: white;
+}
+
+.tarifs-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Les styles précédents restent identiques, juste la modification du cartouche 1 */
+.tarifs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.price-card {
+    background: var(--background);
+    border-radius: 15px;
+    padding: 2.5rem;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.price-card:hover {
+    transform: translateY(-5px);
+}
+
+.price-card.full-width {
+    grid-column: 1 / -1;
+}
+
+.price-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--secondary);
+    text-align: center;
+    position: relative;
+}
+
+.price-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--primary);
+    margin: 1rem auto;
+}
+
+.price-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.price-name {
+    font-size: 1.1rem;
+    color: var(--text);
+}
+
+.price-value {
+    font-weight: 600;
+    color: var(--primary-dark);
+    font-size: 1.2rem;
+}
+
+.price-card.highlight .price-value {
+    color: white;
+}
+
+.notes {
+    margin-top: 2rem;
+    font-style: italic;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .tarifs-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .price-card {
+        padding: 1.5rem;
+    }
+    
+    .price-title {
+        font-size: 1.5rem;
+    }
+}

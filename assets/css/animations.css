@@ -1,0 +1,273 @@
+/* Variables d'animation */
+:root {
+    --transition-fast: 0.2s;
+    --transition-normal: 0.3s;
+    --transition-slow: 0.5s;
+    --bezier-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --bezier-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Keyframes avancés */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes sparkle {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+@keyframes borderGlow {
+    0%, 100% { box-shadow: 0 0 5px var(--primary); }
+    50% { box-shadow: 0 0 20px var(--primary); }
+}
+
+@keyframes rotateIn {
+    from {
+        transform: perspective(400px) rotateX(-90deg);
+        opacity: 0;
+    }
+    to {
+        transform: perspective(400px) rotateX(0);
+        opacity: 1;
+    }
+}
+
+/* Effet de particules pour le logo */
+.logo {
+    position: relative;
+    animation: float 3s ease-in-out infinite;
+}
+
+.logo::before, .logo::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+    opacity: 0;
+    animation: sparkle 2s var(--bezier-bounce) infinite;
+}
+
+.logo::before {
+    top: -10px;
+    left: 20%;
+    animation-delay: 0.3s;
+}
+
+.logo::after {
+    top: 5px;
+    right: 20%;
+    animation-delay: 0.5s;
+}
+
+/* Effet avancé pour les liens du menu */
+.nav-menu > li > a {
+    position: relative;
+    transition: all var(--transition-normal) var(--bezier-smooth);
+}
+
+.nav-menu > li > a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--primary);
+    border-radius: 25px;
+    opacity: 0;
+    z-index: -1;
+    transform: scale(0.8);
+    transition: all var(--transition-normal) var(--bezier-bounce);
+}
+
+.nav-menu > li > a:hover::before {
+    opacity: 0.1;
+    transform: scale(1);
+}
+
+.nav-menu > li > a:hover {
+    transform: translateY(-3px) scale(1.05);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Animation 3D pour le sous-menu */
+.submenu {
+    transform-origin: top center;
+    transform: perspective(400px) rotateX(-90deg);
+    opacity: 0;
+    transition: all var(--transition-normal) var(--bezier-smooth);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 10px 20px rgba(0, 0, 0, 0.1),
+        0 6px 6px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.has-submenu:hover .submenu {
+    transform: perspective(400px) rotateX(0);
+    opacity: 1;
+}
+
+/* Effet hover sur les liens du sous-menu */
+.submenu li a {
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transition-normal) var(--bezier-smooth);
+    z-index: 1;
+}
+
+.submenu li a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--primary), transparent);
+    opacity: 0;
+    z-index: -1;
+    transition: all var(--transition-normal) var(--bezier-smooth);
+    transform: translateX(-100%) scale(0.5);
+}
+
+.submenu li a:hover::before {
+    opacity: 0.2;
+    transform: translateX(0) scale(1);
+}
+
+/* Animation du burger menu */
+.burger-menu {
+    position: relative;
+    overflow: hidden;
+}
+
+.burger-menu::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, var(--primary) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.burger-menu:hover::after {
+    opacity: 0.2;
+}
+
+.burger-menu i {
+    transition: transform var(--transition-normal) var(--bezier-bounce);
+}
+
+.burger-menu.active i {
+    transform: rotate(360deg);
+}
+
+/* Animation spéciale pour le menu mobile */
+@media (max-width: 768px) {
+    .nav-menu.active {
+        animation: slideInWithGlow 0.5s var(--bezier-smooth) forwards;
+    }
+
+    @keyframes slideInWithGlow {
+        0% {
+            transform: translateY(-20px);
+            opacity: 0;
+            box-shadow: none;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.1),
+                0 1px 8px rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    .nav-menu.active li {
+        animation: popIn 0.5s var(--bezier-bounce) forwards;
+    }
+
+    @keyframes popIn {
+        0% {
+            transform: scale(0.8) translateY(-20px);
+            opacity: 0;
+        }
+        100% {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+    }
+}
+
+/* Effet glassmorphism pour les éléments du menu */
+.nav-menu > li > a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Animation des liens sociaux */
+.social-links a {
+    position: relative;
+    transition: all var(--transition-normal) var(--bezier-bounce);
+}
+
+.social-links a:hover {
+    transform: translateY(-5px) rotate(8deg);
+}
+
+.social-links a::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, var(--primary) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.social-links a:hover::before {
+    opacity: 0.3;
+}
+
+/* Effet de focus interactif */
+.nav-menu a:focus,
+.social-links a:focus,
+.burger-menu:focus {
+    outline: none;
+    animation: borderGlow 1.5s infinite;
+}
+
+/* Animation du footer */
+.footer-content {
+    position: relative;
+}
+
+.footer-section {
+    transition: transform var(--transition-normal) var(--bezier-smooth);
+}
+
+.footer-section:hover {
+    transform: translateY(-5px);
+}
+
+.footer-section::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    transform: scaleX(0);
+    transition: transform var(--transition-slow) var(--bezier-smooth);
+}
+
+.footer-section:hover::after {
+    transform: scaleX(1);
+}

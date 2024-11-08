@@ -1,0 +1,157 @@
+/* Hero Section */
+.classique-hero {
+    height: 400px;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('../images/products/classiques/Classique1.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.classique-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.classique-subtitle {
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Description Section */
+.classique-description {
+    padding: 6rem 0;
+    background: white;
+}
+
+.classique-intro {
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    text-align: center;
+}
+
+.classique-lead {
+    font-size: 1.2rem;
+    line-height: 1.8;
+}
+
+/* Options Cards */
+.classique-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 4rem 0;
+}
+
+.option-card {
+    background: var(--background);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.option-card:hover {
+    transform: translateY(-10px);
+}
+
+.option-card .highlight {
+    color: var(--primary-dark);
+}
+
+/* Galerie spécifique aux classiques */
+.classique-gallery {
+    padding: 6rem 0;
+    background: var(--background);
+}
+
+/* CTA Section avec style spécifique */
+.classique-cta {
+    background: var(--secondary);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.classique-cta .highlight {
+    color: var(--primary-light);
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .classique-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .classique-hero {
+        height: 300px;
+    }
+    
+    .classique-title {
+        font-size: 2.5rem;
+    }
+    
+    .classique-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .classique-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+	
+	/* Enlever les puces et ajuster le style des listes */
+.option-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.option-card li {
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+}
+
+/* Style pour le tag de spécialité */
+.specialty-tag {
+    color: var(--primary-dark);
+    font-style: italic;
+    margin: 0.5rem 0 1rem;
+    font-size: 0.9rem;
+}
+	/* Style du badge de spécialité */
+.specialty-badge {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--primary-dark);
+    font-style: italic;
+}
+
+.specialty-badge i {
+    color: var(--primary-dark);
+    font-size: 1.2rem;
+}
+
+.specialty-badge span {
+    font-size: 0.95rem;
+}
+}

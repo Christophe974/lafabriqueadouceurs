@@ -1,0 +1,293 @@
+@charset "UTF-8";
+
+/* Hero Section */
+.illusions-hero {
+    height: 400px;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('../images/products/illusions/Illusion1.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.illusions-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.illusions-subtitle {
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Description Section */
+.illusions-description {
+    padding: 6rem 0;
+    background: white;
+}
+
+.illusions-intro {
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    text-align: center;
+}
+
+.illusions-lead {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+.illusions-conclusion {
+    max-width: 800px;
+    margin: 4rem auto 0;
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    padding: 2rem;
+    background: var(--background);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Types Cards */
+.illusions-types {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin: 4rem 0;
+}
+
+.type-card {
+    background: var(--background);
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.type-card:hover {
+    transform: translateY(-10px);
+}
+
+.type-icon {
+    font-size: 2.5rem;
+    color: var(--primary-dark);
+    margin-bottom: 1.5rem;
+}
+
+.type-card h3 {
+    color: var(--secondary);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.type-card p {
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+/* Gallery Section */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.gallery-title {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--secondary);
+}
+
+.gallery-image-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    overflow: hidden;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.gallery-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-image-container:hover .gallery-image {
+    transform: scale(1.05);
+}
+
+/* CTA Section */
+.illusions-cta {
+    background: var(--secondary);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+    margin-top: 4rem;
+}
+
+.illusions-cta h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.illusions-cta p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+/* Modal Styles from layers.css */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    animation: zoomIn 0.6s;
+}
+
+.close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+/* Navigation Buttons */
+.nav-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 35px;
+    transition: 0.3s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    background-color: rgba(0,0,0,0.1);
+}
+
+.nav-btn:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev {
+    left: 0;
+}
+
+/* Loader */
+.loader {
+    border: 5px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 5px solid #3498db;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -25px;
+    margin-left: -25px;
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+    .illusions-types {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .illusions-hero {
+        height: 300px;
+    }
+    
+    .illusions-title {
+        font-size: 2.5rem;
+    }
+    
+    .illusions-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .illusions-types {
+        grid-template-columns: 1fr;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .type-card {
+        padding: 2rem;
+    }
+
+    .modal-content {
+        width: 95%;
+    }
+    
+    .close {
+        right: 20px;
+        top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .illusions-hero {
+        height: 250px;
+    }
+    
+    .illusions-title {
+        font-size: 2rem;
+    }
+    
+    .type-icon {
