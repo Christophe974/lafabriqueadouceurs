@@ -579,8 +579,8 @@ $pageTitle = "Calendrier de l'Après - Commande";
             <div class="deco-line">
                 🎄 ✨ 🎁
             </div>
-            <h1>Douceurs et gourmandises pour vos fêtes</h1>
-            <p>Prolongez la magie des fêtes jusqu'au 31 décembre ✨</p>
+            <h1>Coffrets de fin d'année</h1>
+            <p>Douceurs et gourmandises pour vos fêtes</p>
             <div class="deco-line">
                 🍫 🎅 🎄
             </div>
@@ -613,7 +613,6 @@ $pageTitle = "Calendrier de l'Après - Commande";
                             <div class="product-image-container">
                                 <img src="assets/images/products/noel/mrbiscuit.jpg" alt="Mr Biscuit" class="product-image">
                             </div>
-                            <div class="product-icon">🍪</div>
                             <div class="product-name">Mr Biscuit</div>
                             <div class="product-desc">Un délice croustillant pour accompagner vos gourmandises</div>
                             <div class="product-price">10 €</div>
@@ -629,7 +628,6 @@ $pageTitle = "Calendrier de l'Après - Commande";
                             <div class="product-image-container">
                                 <img src="assets/images/products/noel/tasse.jpg" alt="Tasse Gourmande" class="product-image">
                             </div>
-                            <div class="product-icon">☕️</div>
                             <div class="product-name">Tasse Gourmande</div>
                             <div class="product-desc">Tasse, pâte à tartiner, gianduja et sablés</div>
                             <div class="product-price">13 €</div>
@@ -645,7 +643,6 @@ $pageTitle = "Calendrier de l'Après - Commande";
                             <div class="product-image-container">
                                 <img src="assets/images/products/noel/plateau-solo.jpg" alt="Plateau Solo" class="product-image">
                             </div>
-                            <div class="product-icon">☕️</div>
                             <div class="product-name">Plateau Solo</div>
                             <div class="product-desc">Tasse, pâte à tartiner, sablés, gianduja et bougie</div>
                             <div class="product-price">17 €</div>
@@ -661,7 +658,6 @@ $pageTitle = "Calendrier de l'Après - Commande";
                             <div class="product-image-container">
                                 <img src="assets/images/products/noel/plateau-duo.jpg" alt="Plateau Duo" class="product-image">
                             </div>
-                            <div class="product-icon">💞</div>
                             <div class="product-name">Plateau Duo</div>
                             <div class="product-desc">2 tasses, pâte à tartiner, sablés, gianduja et bougie</div>
                             <div class="product-price">28 €</div>
@@ -677,7 +673,6 @@ $pageTitle = "Calendrier de l'Après - Commande";
                             <div class="product-image-container">
                                 <img src="assets/images/products/noel/coffret-trilogie.jpg" alt="Coffret Trilogie" class="product-image">
                             </div>
-                            <div class="product-icon">🍫</div>
                             <div class="product-name">Coffret Trilogie</div>
                             <div class="product-desc">Pâte à tartiner, praliné, sablés et gianduja</div>
                             <div class="product-price">18 €</div>
@@ -693,7 +688,6 @@ $pageTitle = "Calendrier de l'Après - Commande";
                             <div class="product-image-container">
                                 <img src="assets/images/products/noel/calendrier.jpg" alt="Calendrier de l'Après" class="product-image">
                             </div>
-                            <div class="product-icon">📅</div>
                             <div class="product-name">Calendrier de l'Après</div>
                             <div class="product-desc">Du 25 au 31 décembre - Pâte à tartiner, sablés, praliné, gianduja...</div>
                             <div class="product-price">27 €</div>
