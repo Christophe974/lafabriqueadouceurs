@@ -1018,7 +1018,7 @@ $pageTitle = "Calendrier de l'Après - Commande";
                                     Merci ${fullName}! Votre commande a bien été reçue.
                                 </p>
                                 <p style="color: #666; margin-bottom: 20px;">
-                                    📧 Un email de confirmation a été envoyé à: <strong>${email}</strong>
+                                    📧 Un email de confirmation a été envoyé à:  <strong>${email}</strong>
                                 </p>
                                 <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 30px 0; text-align: left; display: inline-block;">
                                     <p style="margin-bottom: 10px;"><strong>📋 Récapitulatif:</strong></p>

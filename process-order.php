@@ -23,6 +23,13 @@ if (!isset($data['email']) || !isset($data['name'])) {
 
 try {
     // ============================================================================
+    // EXTRAIRE LE PRÉNOM
+    // ============================================================================
+    
+    $fullName = $data['name'] ?? '';
+    $firstname = trim(explode(' ', $fullName)[0]); // Prendre la première partie avant l'espace
+    
+    // ============================================================================
     // 1. ENREGISTRER EN CSV LOCAL
     // ============================================================================
     
@@ -125,7 +132,9 @@ try {
             </div>
 
             <div style='padding: 40px 20px;'>
-                <p style='font-size: 16px; margin-bottom: 25px;'>Bonjour <strong>" . htmlspecialchars($data['name']) . "</strong>,</p>
+                <p style='font-size: 16px; margin-bottom: 25px;'>Bonjour <strong>" . htmlspecialchars($firstname) . "</strong>,</p>
+
+                <p style='color: #999; font-size: 12px; margin-bottom: 20px;'>Un email de confirmation a été envoyé à : <strong>" . htmlspecialchars($to) . "</strong></p>
 
                 <p style='color: #666; line-height: 1.6; margin-bottom: 25px;'>
                     Merci de votre commande! Voici le récapitulatif complet.
@@ -153,6 +162,40 @@ try {
                 <p style='color: #666; line-height: 1.6; margin-bottom: 25px;'>
                     À très bientôt à La Fabrique à Douceurs!
                 </p>
+            </div>
+
+            <!-- Section Contact & Réseaux -->
+            <div style='background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 50%); color: white; padding: 40px 20px;'>
+                <div style='max-width: 600px; margin: 0 auto;'>
+                    <h3 style='margin: 0 0 20px 0; font-size: 18px; text-align: center;'>La Fabrique à Douceurs</h3>
+                    
+                    <!-- Coordonnées -->
+                    <div style='margin-bottom: 20px; line-height: 1.8; font-size: 14px;'>
+                        <p style='margin: 5px 0;'><strong>📍 Adresse:</strong> Héricourt, Franche-Comté</p>
+                        <p style='margin: 5px 0;'><strong>📞 Téléphone:</strong> 06 24 66 55 40</p>
+                        <p style='margin: 5px 0;'><strong>📧 Email:</strong> lafabriqueadouceurs70@gmail.com</p>
+                    </div>
+                    
+                    <!-- Horaires -->
+                    <div style='margin-bottom: 20px; line-height: 1.8; font-size: 14px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px;'>
+                        <p style='margin: 5px 0;'><strong>⏰ Horaires:</strong></p>
+                        <p style='margin: 5px 0;'>Ouvert tous les jours sur rendez-vous</p>
+                        <p style='margin: 5px 0; font-style: italic; font-size: 13px;'>Retrait des commandes sur rendez-vous</p>
+                    </div>
+                    
+                    <!-- Réseaux Sociaux -->
+                    <div style='text-align: center; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px;'>
+                        <p style='margin: 0 0 12px 0; font-size: 14px;'><strong>Suivez-nous:</strong></p>
+                        <div style='display: flex; justify-content: center; gap: 20px; font-size: 16px;'>
+                            <a href='https://www.facebook.com/profile.php?id=100095251458087' style='color: white; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;'>
+                                <span style='font-size: 20px;'>f</span> Facebook
+                            </a>
+                            <a href='https://www.instagram.com/sweetnessbyvaness/' style='color: white; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;'>
+                                <span style='font-size: 20px;'>📷</span> Instagram
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div style='background: #f5f5f5; padding: 20px; text-align: center; color: #999; font-size: 12px; border-radius: 0 0 8px 8px; border-top: 1px solid #e0e0e0;'>
