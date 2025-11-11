@@ -43,6 +43,8 @@ class GoogleSheetsAPI {
             return $this->accessToken;
         }
 
+        error_log("=== Tentative d'obtention du token Google ===");
+
         // Créer un JWT
         $header = [
             'alg' => 'RS256',
@@ -58,15 +60,21 @@ class GoogleSheetsAPI {
             'iat' => $now
         ];
 
-        $headerEncoded = base64_encode(json_encode($header));
-        $claimEncoded = base64_encode(json_encode($claim));
+        $headerEncoded = rtrim(strtr(base64_encode(json_encode($header)), '+/', '-_'), '=');
+        $claimEncoded = rtrim(strtr(base64_encode(json_encode($claim)), '+/', '-_'), '=');
         $signature = '';
 
         $private_key = $this->credentials['private_key'];
-        openssl_sign("$headerEncoded.$claimEncoded", $signature, $private_key, 'sha256');
-        $signatureEncoded = base64_encode($signature);
-
+        
+        if (!openssl_sign("$headerEncoded.$claimEncoded", $signature, $private_key, 'sha256')) {
+            error_log("❌ Erreur signature OpenSSL");
+            return null;
+        }
+        
+        $signatureEncoded = rtrim(strtr(base64_encode($signature), '+/', '-_'), '=');
         $jwt = "$headerEncoded.$claimEncoded.$signatureEncoded";
+
+        error_log("JWT créé avec succès");
 
         // Échanger le JWT pour un token d'accès
         $ch = curl_init();
@@ -77,21 +85,40 @@ class GoogleSheetsAPI {
             'assertion' => $jwt
         ]));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 
         $response = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $curlError = curl_error($ch);
         curl_close($ch);
 
+        error_log("Réponse Google: HTTP $httpCode");
+        
+        if ($curlError) {
+            error_log("Erreur CURL: $curlError");
+            return null;
+        }
+
         if ($httpCode !== 200) {
-            error_log("Erreur obtention token Google: HTTP $httpCode - $response");
+            error_log("❌ Erreur obtention token Google: HTTP $httpCode");
+            error_log("Réponse: $response");
             return null;
         }
 
         $data = json_decode($response, true);
+        
+        if (!isset($data['access_token'])) {
+            error_log("❌ Pas de token dans la réponse");
+            error_log("Réponse: $response");
+            return null;
+        }
+
         $this->accessToken = $data['access_token'];
         $this->tokenExpiry = $now + $data['expires_in'] - 60;
 
+        error_log("✅ Token obtenu avec succès");
         return $this->accessToken;
     }
 
@@ -99,13 +126,18 @@ class GoogleSheetsAPI {
      * Ajouter une ligne au Google Sheet
      */
     public function appendRow($sheetId, $values) {
+        error_log("=== Ajout de ligne au Google Sheet ===");
+        
         $token = $this->getAccessToken();
         if (!$token) {
-            error_log("Impossible d'obtenir le token d'accès Google");
+            error_log("❌ Impossible d'obtenir le token d'accès Google");
             return false;
         }
 
-        $url = "https://sheets.googleapis.com/v4/spreadsheets/$sheetId/values/Sheet1!A:I:append?valueInputOption=RAW";
+        // URL correcte avec le nom de la feuille entre guillemets simples et URL encoded
+        $url = "https://sheets.googleapis.com/v4/spreadsheets/$sheetId/values/%27Feuille%201%27:append?valueInputOption=RAW";
+
+        error_log("URL: $url");
 
         $body = [
             'values' => [$values]
@@ -120,17 +152,28 @@ class GoogleSheetsAPI {
         ]);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 
         $response = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $curlError = curl_error($ch);
         curl_close($ch);
 
+        error_log("Réponse Google Sheets: HTTP $httpCode");
+
+        if ($curlError) {
+            error_log("Erreur CURL: $curlError");
+            return false;
+        }
+
         if ($httpCode === 200 || $httpCode === 201) {
-            error_log("Données envoyées au Google Sheet avec succès");
+            error_log("✅ Données envoyées au Google Sheet avec succès");
             return true;
         } else {
-            error_log("Erreur envoi Google Sheets: HTTP $httpCode - $response");
+            error_log("❌ Erreur envoi Google Sheets: HTTP $httpCode");
+            error_log("Réponse: $response");
             return false;
         }
     }

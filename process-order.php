@@ -1,8 +1,13 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 
-// Inclure la configuration Google Sheets
-require_once __DIR__ . '/google-sheets-config.php';
+// Inclure la configuration Google Sheets avec chemin absolu
+$configFile = __DIR__ . '/google-sheets-config.php';
+if (file_exists($configFile)) {
+    require_once $configFile;
+} else {
+    error_log("❌ Fichier de config Google Sheets non trouvé: $configFile");
+}
 
 // Récupérer les données JSON
 $input = file_get_contents('php://input');
@@ -26,11 +31,18 @@ if (!isset($data['email']) || !isset($data['name'])) {
 
 try {
     // ============================================================================
-    // EXTRAIRE LE PRÉNOM
+    // EXTRAIRE LE PRÉNOM ET LE NOM
     // ============================================================================
     
     $fullName = $data['name'] ?? '';
-    $firstname = trim(explode(' ', $fullName)[0]); // Prendre la première partie avant l'espace
+    $nameParts = explode(' ', trim($fullName));
+    $firstname = isset($nameParts[0]) ? trim($nameParts[0]) : '';
+    $lastname = isset($nameParts[1]) ? trim($nameParts[1]) : '';
+    
+    // Si pas de deuxième partie, mettre tout en lastname
+    if (empty($lastname) && !empty($firstname)) {
+        $lastname = $firstname;
+    }
     
     // ============================================================================
     // 1. ENREGISTRER EN CSV LOCAL
@@ -93,30 +105,36 @@ try {
     // 1.5 ENVOYER LES DONNÉES AU GOOGLE SHEET
     // ============================================================================
     
-    // Formater les produits pour Google Sheets
-    $productsStr = '';
-    if (isset($data['items']) && is_array($data['items'])) {
-        foreach ($data['items'] as $item) {
-            if ($productsStr) $productsStr .= ' | ';
-            $productsStr .= "{$item['quantity']}x {$item['name']}";
+    // Vérifier si l'objet Google Sheets est disponible
+    if (isset($googleSheets) && $googleSheets !== null) {
+        // Formater les produits pour Google Sheets
+        $productsStr = '';
+        if (isset($data['items']) && is_array($data['items'])) {
+            foreach ($data['items'] as $item) {
+                if ($productsStr) $productsStr .= ' | ';
+                $productsStr .= "{$item['quantity']}x {$item['name']}";
+            }
         }
+
+        // Préparer les données pour le Google Sheet
+        $sheetRow = [
+            date('Y-m-d H:i:s'),                    // Timestamp
+            $firstname,                              // Prénom
+            $lastname,                               // Nom
+            $data['email'] ?? '',                    // Email
+            $data['phone'] ?? '',                    // Téléphone
+            $productsStr,                            // Produits
+            ($data['total'] ?? 0) . '€',             // Total
+            $data['date'] ?? '',                     // Date Retrait
+            $data['message'] ?? ''                   // Message Marque-page
+        ];
+
+        // Envoyer au Google Sheet
+        $googleSheets->appendRow(GOOGLE_SHEET_ID, $sheetRow);
+        error_log("✅ Données envoyées à Google Sheets");
+    } else {
+        error_log("⚠️ Google Sheets non disponible, envoi en CSV uniquement");
     }
-
-    // Préparer les données pour le Google Sheet
-    $sheetRow = [
-        date('Y-m-d H:i:s'),                    // Timestamp
-        $firstname,                              // Prénom
-        $lastname,                               // Nom
-        $data['email'] ?? '',                    // Email
-        $data['phone'] ?? '',                    // Téléphone
-        $productsStr,                            // Produits
-        ($data['total'] ?? 0) . '€',             // Total
-        $data['date'] ?? '',                     // Date Retrait
-        $data['message'] ?? ''                   // Message Marque-page
-    ];
-
-    // Envoyer au Google Sheet
-    $googleSheets->appendRow(GOOGLE_SHEET_ID, $sheetRow);
 
     // ============================================================================
     // 2. ENVOYER L'EMAIL (optionnel - peut échouer)
