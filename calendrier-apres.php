@@ -414,6 +414,82 @@ $pageTitle = "Calendrier de l'Après - Commande";
             flex: 1;
         }
 
+        /* Section Marque-page */
+        .bookmark-section {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #c41e3a;
+            margin-bottom: 25px;
+            display: none;
+        }
+
+        .bookmark-section.active {
+            display: block;
+            animation: slideInLeft 0.4s ease;
+        }
+
+        .bookmark-section h3 {
+            margin: 0 0 10px 0;
+            color: #c41e3a;
+            font-size: 1.1em;
+        }
+
+        .bookmark-section p {
+            margin: 8px 0;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Effet Glossy */
+        .bookmark-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(196, 30, 58, 0.3);
+            max-width: 220px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .bookmark-image:hover {
+            transform: scale(1.05);
+        }
+
+        .bookmark-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: glossyShine 3s infinite;
+        }
+
+        @keyframes glossyShine {
+            0% {
+                left: -100%;
+            }
+            50% {
+                left: 100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
         /* Total */
         .order-summary {
             background: linear-gradient(135deg, #f5f5f5 0%, #fff 100%);
@@ -709,6 +785,21 @@ $pageTitle = "Calendrier de l'Après - Commande";
                         </div>
                     </div>
 
+                    <!-- Encart Marque-page -->
+                    <div style="background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%); border: 2px solid #c41e3a; border-radius: 12px; padding: 25px; margin-bottom: 30px; text-align: center;">
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 30px; flex-wrap: wrap;">
+                            <div style="flex: 0 0 auto;">
+                                <img src="https://www.lafabriqueadouceurs.fr/assets/images/products/noel/marquepage.jpg" alt="Marque-page gravé" class="bookmark-image">
+                            </div>
+                            <div style="flex: 1; min-width: 250px; text-align: left;">
+                                <h3 style="color: #c41e3a; margin: 0 0 15px 0; font-size: 1.2em;">📖 Offre spéciale</h3>
+                                <p style="color: #333; margin: 0 0 12px 0; font-weight: 600;">Avec le <strong>Calendrier de l'Après</strong></p>
+                                <p style="color: #666; margin: 0 0 15px 0; line-height: 1.6;">Recevez un magnifique <strong>marque-page gravé</strong> avec le texte de votre choix ! Un cadeau personnalisé et durable pour prolonger la magie de vos fêtes.</p>
+                                <p style="color: #999; font-size: 0.9em; margin: 0; font-style: italic;">Vous pourrez personnaliser votre message à l'étape suivante.</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="errorProduct" class="error-message" style="text-align: center;"></div>
 
                     <div class="button-group">
@@ -755,9 +846,17 @@ $pageTitle = "Calendrier de l'Après - Commande";
                         <div id="errorDate" class="error-message"></div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="message">Petit mot personnalisé (optionnel) ✨</label>
-                        <textarea id="message" name="message" placeholder="Ajoutez un message doux pour accompagner votre cadeau..."></textarea>
+                    <!-- Section Marque-page (apparaît si calendrier sélectionné) -->
+                    <div class="bookmark-section" id="bookmarkSection">
+                        <h3>📖 Cadeau personnalisé : Marque-page gravé</h3>
+                        <p>Avec votre commande du <strong>Calendrier de l'Après</strong>, nous vous offrons un magnifique <strong>marque-page gravé</strong> avec le texte de votre choix !</p>
+                        <p style="font-style: italic; color: #999; font-size: 0.9em;">Choisissez le message que vous souhaitez graver sur votre marque-page.</p>
+                    </div>
+
+                    <div class="form-group" id="messageGroup" style="display: none;">
+                        <label for="message">Texte pour le marque-page gravé * <span style="color: #c41e3a;">(obligatoire avec le Calendrier de l'Après)</span></label>
+                        <textarea id="message" name="message" placeholder="Écrivez le message que vous souhaitez graver sur votre marque-page..."></textarea>
+                        <div id="errorMessage" class="error-message"></div>
                     </div>
 
                     <div class="checkbox-group">
@@ -844,6 +943,7 @@ $pageTitle = "Calendrier de l'Après - Commande";
                 
                 input.value = value;
                 updateSummary();
+                checkCalendarSelection();
                 document.getElementById('errorProduct').textContent = '';
             });
         });
@@ -901,6 +1001,24 @@ $pageTitle = "Calendrier de l'Après - Commande";
                 document.querySelector('.info-section').classList.add('active');
                 document.querySelector('[data-step="1"]').classList.add('completed');
                 document.querySelector('[data-step="2"]').classList.add('active');
+                checkCalendarSelection();
+            }
+        }
+
+        // Vérifier si le calendrier de l'après est sélectionné
+        function checkCalendarSelection() {
+            const calendarInput = document.querySelector(`.quantity-input[data-product="5"]`);
+            const calendarQuantity = parseInt(calendarInput.value) || 0;
+            const bookmarkSection = document.getElementById('bookmarkSection');
+            const messageGroup = document.getElementById('messageGroup');
+            
+            if (calendarQuantity > 0) {
+                bookmarkSection.classList.add('active');
+                messageGroup.style.display = 'block';
+            } else {
+                bookmarkSection.classList.remove('active');
+                messageGroup.style.display = 'none';
+                document.getElementById('errorMessage').textContent = '';
             }
         }
 
@@ -959,6 +1077,17 @@ $pageTitle = "Calendrier de l'Après - Commande";
                 isValid = false;
             } else {
                 document.getElementById('errorDate').textContent = '';
+            }
+
+            // Vérifier si le calendrier de l'après est commandé
+            const calendarQuantity = parseInt(document.querySelector(`.quantity-input[data-product="5"]`).value) || 0;
+            const message = document.getElementById('message').value.trim();
+
+            if (calendarQuantity > 0 && !message) {
+                document.getElementById('errorMessage').textContent = 'Le texte du marque-page est obligatoire avec le Calendrier de l\'Après';
+                isValid = false;
+            } else {
+                document.getElementById('errorMessage').textContent = '';
             }
 
             if (!isValid) return;
@@ -1020,9 +1149,9 @@ $pageTitle = "Calendrier de l'Après - Commande";
                                     📧 Un email de confirmation a été envoyé à : <strong>${email}</strong>
                                 </p>
                                 <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 30px 0; text-align: left; display: inline-block;">
-                                    <p style="margin-bottom: 10px;"><strong>📋 Récapitulatif:</strong></p>
+                                    <p style="margin-bottom: 10px;"><strong>📋 Récapitulatif :</strong></p>
                                     ${orderItems.map(item => `<p style="color: #666; margin: 5px 0;">${item.quantity}x ${item.name} = ${item.subtotal}€</p>`).join('')}
-                                    <p style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 15px; color: #c41e3a; font-weight: bold;">Total: ${total}€</p>
+                                    <p style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 15px; color: #c41e3a; font-weight: bold;">Total : ${total}€</p>
                                     <p style="margin-top: 10px; color: #666;">📅 Retrait le <strong>${selectedDate} décembre</strong></p>
                                 </div>
                                 
@@ -1031,19 +1160,13 @@ $pageTitle = "Calendrier de l'Après - Commande";
                                     <h3 style="margin: 0 0 20px 0; font-size: 1.1em;">La Fabrique à Douceurs</h3>
                                     
                                     <div style="margin-bottom: 20px; line-height: 1.8; font-size: 0.95em;">
-                                        <p style="margin: 5px 0;">📍 <strong>Adresse:</strong> Héricourt, Franche-Comté</p>
-                                        <p style="margin: 5px 0;">📞 <strong>Téléphone:</strong> 06 24 66 55 40</p>
-                                        <p style="margin: 5px 0;">📧 <strong>Email:</strong> lafabriqueadouceurs70@gmail.com</p>
-                                    </div>
-                                    
-                                    <div style="margin-bottom: 20px; line-height: 1.8; font-size: 0.95em; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px;">
-                                        <p style="margin: 5px 0;"><strong>⏰ Horaires:</strong></p>
-                                        <p style="margin: 5px 0;">Ouvert tous les jours sur rendez-vous</p>
-                                        <p style="margin: 5px 0; font-style: italic; font-size: 0.9em;">Retrait des commandes sur rendez-vous</p>
+                                        <p style="margin: 5px 0;">📍 <strong>Adresse :</strong> 56 Avenue Jean Jaures - 70400 Héricourt</p>
+                                        <p style="margin: 5px 0;">📞 <strong>Téléphone :</strong> 06 24 66 55 40</p>
+                                        <p style="margin: 5px 0;">📧 <strong>Email :</strong> lafabriqueadouceurs70@gmail.com</p>
                                     </div>
                                     
                                     <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px;">
-                                        <p style="margin: 0 0 10px 0; font-size: 0.95em;"><strong>Suivez-nous:</strong></p>
+                                        <p style="margin: 0 0 10px 0; font-size: 0.95em;"><strong>Suivez-nous :</strong></p>
                                         <div style="display: flex; justify-content: center; gap: 15px;">
                                             <a href="https://www.facebook.com/profile.php?id=100095251458087" style="color: white; text-decoration: none; font-size: 0.9em;">f Facebook</a>
                                             <a href="https://www.instagram.com/sweetnessbyvaness/" style="color: white; text-decoration: none; font-size: 0.9em;">📷 Instagram</a>
@@ -1052,7 +1175,7 @@ $pageTitle = "Calendrier de l'Après - Commande";
                                 </div>
                                 
                                 <p style="color: #666; margin-top: 30px;">
-                                    À bientôt à La Fabrique à Douceurs! 🎄✨
+                                    À bientôt à La Fabrique à Douceurs ! 🎄✨
                                 </p>
                             </div>
                         </div>

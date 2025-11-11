@@ -127,7 +127,7 @@ try {
     <body style='font-family: Arial, sans-serif; color: #333; margin: 0; padding: 0;'>
         <div style='max-width: 600px; margin: 0 auto; background: white;'>
             <div style='background: linear-gradient(135deg, #1a472a 0%, #8b0000 100%); color: white; padding: 40px 20px; text-align: center; border-radius: 8px 8px 0 0;'>
-                <h1 style='margin: 0; font-size: 32px; letter-spacing: 1px;'>Commande confirmée!</h1>
+                <h1 style='margin: 0; font-size: 32px; letter-spacing: 1px;'>Commande confirmée !</h1>
                 <p style='margin: 10px 0 0 0; font-size: 16px; opacity: 0.9;'>Merci de votre confiance</p>
             </div>
 
@@ -137,30 +137,30 @@ try {
                 <p style='color: #999; font-size: 12px; margin-bottom: 20px;'>Un email de confirmation a été envoyé à : <strong>" . htmlspecialchars($to) . "</strong></p>
 
                 <p style='color: #666; line-height: 1.6; margin-bottom: 25px;'>
-                    Merci de votre commande! Voici le récapitulatif complet.
+                    Merci de votre commande ! Voici le récapitulatif complet.
                 </p>
 
                 <div style='background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 25px;'>
-                    <h2 style='margin: 0 0 15px 0; color: #c41e3a; font-size: 18px;'>Vos produits:</h2>
+                    <h2 style='margin: 0 0 15px 0; color: #c41e3a; font-size: 18px;'>Vos produits :</h2>
                     <table style='width: 100%; border-collapse: collapse;'>
                         {$itemsHtml}
                     </table>
                     <div style='margin-top: 15px; padding-top: 15px; border-top: 2px solid #c41e3a; display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; color: #c41e3a;'>
-                        <span>Total:</span>
+                        <span>Total :</span>
                         <span>" . htmlspecialchars($data['total'] . '€') . "</span>
                     </div>
                 </div>
 
                 <div style='background: #fff5f5; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #c41e3a;'>
-                    <h2 style='margin: 0 0 15px 0; color: #c41e3a; font-size: 18px;'>Retrait de votre commande:</h2>
-                    <p style='margin: 8px 0; color: #666;'><strong>Date:</strong> " . htmlspecialchars($data['date']) . "</p>
-                    <p style='margin: 8px 0; color: #666;'><strong>Lieu:</strong> La Fabrique à Douceurs, Héricourt</p>
+                    <h2 style='margin: 0 0 15px 0; color: #c41e3a; font-size: 18px;'>Retrait de votre commande :</h2>
+                    <p style='margin: 8px 0; color: #666;'><strong>Date :</strong> " . htmlspecialchars($data['date']) . "</p>
+                    <p style='margin: 8px 0; color: #666;'><strong>Lieu :</strong> La Fabrique à Douceurs, Héricourt</p>
                 </div>
 
                 {$messageBlock}
 
                 <p style='color: #666; line-height: 1.6; margin-bottom: 25px;'>
-                    À très bientôt à La Fabrique à Douceurs!
+                    À très bientôt à La Fabrique à Douceurs !
                 </p>
             </div>
 
@@ -171,21 +171,14 @@ try {
                     
                     <!-- Coordonnées -->
                     <div style='margin-bottom: 20px; line-height: 1.8; font-size: 14px;'>
-                        <p style='margin: 5px 0;'><strong>📍 Adresse:</strong> Héricourt, Franche-Comté</p>
-                        <p style='margin: 5px 0;'><strong>📞 Téléphone:</strong> 06 24 66 55 40</p>
-                        <p style='margin: 5px 0;'><strong>📧 Email:</strong> lafabriqueadouceurs70@gmail.com</p>
-                    </div>
-                    
-                    <!-- Horaires -->
-                    <div style='margin-bottom: 20px; line-height: 1.8; font-size: 14px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px;'>
-                        <p style='margin: 5px 0;'><strong>⏰ Horaires:</strong></p>
-                        <p style='margin: 5px 0;'>Ouvert tous les jours sur rendez-vous</p>
-                        <p style='margin: 5px 0; font-style: italic; font-size: 13px;'>Retrait des commandes sur rendez-vous</p>
+                        <p style='margin: 5px 0;'><strong>📍 Adresse :</strong> 56 Avenue Jean Jaures - 70400 Héricourt</p>
+                        <p style='margin: 5px 0;'><strong>📞 Téléphone :</strong> 06 24 66 55 40</p>
+                        <p style='margin: 5px 0;'><strong>📧 Email :</strong> lafabriqueadouceurs70@gmail.com</p>
                     </div>
                     
                     <!-- Réseaux Sociaux -->
                     <div style='text-align: center; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px;'>
-                        <p style='margin: 0 0 12px 0; font-size: 14px;'><strong>Suivez-nous:</strong></p>
+                        <p style='margin: 0 0 12px 0; font-size: 14px;'><strong>Suivez-nous :</strong></p>
                         <div style='display: flex; justify-content: center; gap: 20px; font-size: 16px;'>
                             <a href='https://www.facebook.com/profile.php?id=100095251458087' style='color: white; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;'>
                                 <span style='font-size: 20px;'>f</span> Facebook
