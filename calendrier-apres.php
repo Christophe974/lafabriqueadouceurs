@@ -724,10 +724,17 @@ $pageTitle = "Calendrier de l'Après - Commande";
                         📝 Finalisez votre commande
                     </h2>
 
-                    <div class="form-group">
-                        <label for="name">Votre nom *</label>
-                        <input type="text" id="name" name="name" required placeholder="Ex: Jean Dupont">
-                        <div id="errorName" class="error-message"></div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label for="firstname">Prénom *</label>
+                            <input type="text" id="firstname" name="firstname" required placeholder="Ex: Jean">
+                            <div id="errorFirstname" class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname">Nom *</label>
+                            <input type="text" id="lastname" name="lastname" required placeholder="Ex: Dupont">
+                            <div id="errorLastname" class="error-message"></div>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -756,7 +763,7 @@ $pageTitle = "Calendrier de l'Après - Commande";
                     <div class="checkbox-group">
                         <input type="checkbox" id="terms" name="terms" required>
                         <label for="terms">
-                            J'accepte que ma commande soit traitée et je reconnais avoir lu les conditions
+                            J'accepte que ma commande soit traitée
                         </label>
                     </div>
 
@@ -903,15 +910,34 @@ $pageTitle = "Calendrier de l'Après - Commande";
 
             // Validation basique
             let isValid = true;
-            const name = document.getElementById('name').value.trim();
+            
+            // Formatage du prénom (première lettre majuscule)
+            let firstname = document.getElementById('firstname').value.trim();
+            if (firstname) {
+                firstname = firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase();
+            }
+            
+            // Formatage du nom (tout en majuscule)
+            let lastname = document.getElementById('lastname').value.trim();
+            if (lastname) {
+                lastname = lastname.toUpperCase();
+            }
+            
             const email = document.getElementById('email').value.trim();
             const phone = document.getElementById('phone').value.trim();
 
-            if (!name) {
-                document.getElementById('errorName').textContent = 'Le nom est requis';
+            if (!firstname) {
+                document.getElementById('errorFirstname').textContent = 'Le prénom est requis';
                 isValid = false;
             } else {
-                document.getElementById('errorName').textContent = '';
+                document.getElementById('errorFirstname').textContent = '';
+            }
+
+            if (!lastname) {
+                document.getElementById('errorLastname').textContent = 'Le nom est requis';
+                isValid = false;
+            } else {
+                document.getElementById('errorLastname').textContent = '';
             }
 
             if (!email || !email.includes('@')) {
@@ -956,7 +982,7 @@ $pageTitle = "Calendrier de l'Après - Commande";
 
             // Préparer les données
             const formData = {
-                name: name,
+                name: firstname + ' ' + lastname,
                 email: email,
                 phone: phone,
                 date: selectedDate + ' décembre',
@@ -982,13 +1008,14 @@ $pageTitle = "Calendrier de l'Après - Commande";
                 if (result.success) {
                     // Message de succès
                     const form = document.getElementById('orderForm');
+                    const fullName = firstname + ' ' + lastname;
                     form.innerHTML = `
                         <div class="form-wrapper">
                             <div style="text-align: center; padding: 60px 20px;">
                                 <div style="font-size: 4em; margin-bottom: 20px;">🎉</div>
                                 <h2 style="color: #333; margin-bottom: 15px;">Commande validée!</h2>
                                 <p style="color: #666; font-size: 1.1em; margin-bottom: 30px;">
-                                    Merci ${name}! Votre commande a bien été reçue.
+                                    Merci ${fullName}! Votre commande a bien été reçue.
                                 </p>
                                 <p style="color: #666; margin-bottom: 20px;">
                                     📧 Un email de confirmation a été envoyé à: <strong>${email}</strong>
