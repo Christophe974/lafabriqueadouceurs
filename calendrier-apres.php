@@ -197,6 +197,26 @@ $pageTitle = "Calendrier de l'Après - Commande";
             overflow: hidden;
         }
 
+        .product-image-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background: #f0f0f0;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
         .product-card::before {
             content: '';
             position: absolute;
@@ -559,7 +579,7 @@ $pageTitle = "Calendrier de l'Après - Commande";
             <div class="deco-line">
                 🎄 ✨ 🎁
             </div>
-            <h1>Calendrier de l'Après</h1>
+            <h1>Douceurs et gourmandises pour vos fêtes</h1>
             <p>Prolongez la magie des fêtes jusqu'au 31 décembre ✨</p>
             <div class="deco-line">
                 🍫 🎅 🎄
@@ -588,12 +608,15 @@ $pageTitle = "Calendrier de l'Après - Commande";
                     </h2>
 
                     <div class="products-grid">
-                        <!-- Calendrier de l'Après -->
+                        <!-- Mr Biscuit -->
                         <div class="product-card">
-                            <div class="product-icon">📅</div>
-                            <div class="product-name">Calendrier de l'Après</div>
-                            <div class="product-desc">Du 25 au 31 décembre - Pâte à tartiner, sablés, praliné, gianduja...</div>
-                            <div class="product-price">26 €</div>
+                            <div class="product-image-container">
+                                <img src="assets/images/products/noel/mrbiscuit.jpg" alt="Mr Biscuit" class="product-image">
+                            </div>
+                            <div class="product-icon">🍪</div>
+                            <div class="product-name">Mr Biscuit</div>
+                            <div class="product-desc">Un délice croustillant pour accompagner vos gourmandises</div>
+                            <div class="product-price">10 €</div>
                             <div class="quantity-selector">
                                 <button type="button" class="quantity-btn" data-product="0">−</button>
                                 <input type="number" class="quantity-input" data-product="0" value="0" min="0">
@@ -601,12 +624,15 @@ $pageTitle = "Calendrier de l'Après - Commande";
                             </div>
                         </div>
 
-                        <!-- Coffret Trilogie -->
+                        <!-- Tasse Gourmande -->
                         <div class="product-card">
-                            <div class="product-icon">🍫</div>
-                            <div class="product-name">Coffret Trilogie</div>
-                            <div class="product-desc">Pâte à tartiner, praliné, sablés et gianduja</div>
-                            <div class="product-price">18 €</div>
+                            <div class="product-image-container">
+                                <img src="assets/images/products/noel/tasse.jpg" alt="Tasse Gourmande" class="product-image">
+                            </div>
+                            <div class="product-icon">☕️</div>
+                            <div class="product-name">Tasse Gourmande</div>
+                            <div class="product-desc">Tasse, pâte à tartiner, gianduja et sablés</div>
+                            <div class="product-price">13 €</div>
                             <div class="quantity-selector">
                                 <button type="button" class="quantity-btn" data-product="1">−</button>
                                 <input type="number" class="quantity-input" data-product="1" value="0" min="0">
@@ -616,6 +642,9 @@ $pageTitle = "Calendrier de l'Après - Commande";
 
                         <!-- Plateau Solo -->
                         <div class="product-card">
+                            <div class="product-image-container">
+                                <img src="assets/images/products/noel/plateau-solo.jpg" alt="Plateau Solo" class="product-image">
+                            </div>
                             <div class="product-icon">☕️</div>
                             <div class="product-name">Plateau Solo</div>
                             <div class="product-desc">Tasse, pâte à tartiner, sablés, gianduja et bougie</div>
@@ -629,6 +658,9 @@ $pageTitle = "Calendrier de l'Après - Commande";
 
                         <!-- Plateau Duo -->
                         <div class="product-card">
+                            <div class="product-image-container">
+                                <img src="assets/images/products/noel/plateau-duo.jpg" alt="Plateau Duo" class="product-image">
+                            </div>
                             <div class="product-icon">💞</div>
                             <div class="product-name">Plateau Duo</div>
                             <div class="product-desc">2 tasses, pâte à tartiner, sablés, gianduja et bougie</div>
@@ -640,16 +672,35 @@ $pageTitle = "Calendrier de l'Après - Commande";
                             </div>
                         </div>
 
-                        <!-- Tasse Gourmande -->
+                        <!-- Coffret Trilogie -->
                         <div class="product-card">
-                            <div class="product-icon">☕️</div>
-                            <div class="product-name">Tasse Gourmande</div>
-                            <div class="product-desc">Tasse, pâte à tartiner, gianduja et sablés</div>
-                            <div class="product-price">13 €</div>
+                            <div class="product-image-container">
+                                <img src="assets/images/products/noel/coffret-trilogie.jpg" alt="Coffret Trilogie" class="product-image">
+                            </div>
+                            <div class="product-icon">🍫</div>
+                            <div class="product-name">Coffret Trilogie</div>
+                            <div class="product-desc">Pâte à tartiner, praliné, sablés et gianduja</div>
+                            <div class="product-price">18 €</div>
                             <div class="quantity-selector">
                                 <button type="button" class="quantity-btn" data-product="4">−</button>
                                 <input type="number" class="quantity-input" data-product="4" value="0" min="0">
                                 <button type="button" class="quantity-btn" data-product="4">+</button>
+                            </div>
+                        </div>
+
+                        <!-- Calendrier de l'Après -->
+                        <div class="product-card">
+                            <div class="product-image-container">
+                                <img src="assets/images/products/noel/calendrier.jpg" alt="Calendrier de l'Après" class="product-image">
+                            </div>
+                            <div class="product-icon">📅</div>
+                            <div class="product-name">Calendrier de l'Après</div>
+                            <div class="product-desc">Du 25 au 31 décembre - Pâte à tartiner, sablés, praliné, gianduja...</div>
+                            <div class="product-price">27 €</div>
+                            <div class="quantity-selector">
+                                <button type="button" class="quantity-btn" data-product="5">−</button>
+                                <input type="number" class="quantity-input" data-product="5" value="0" min="0">
+                                <button type="button" class="quantity-btn" data-product="5">+</button>
                             </div>
                         </div>
                     </div>
@@ -731,11 +782,12 @@ $pageTitle = "Calendrier de l'Après - Commande";
     <script>
         // Données des produits
         const products = [
-            { id: 'calendrier', name: 'Calendrier de l\'Après', price: 26 },
-            { id: 'trilogie', name: 'Coffret Trilogie', price: 18 },
+            { id: 'biscuit', name: 'Mr Biscuit', price: 10 },
+            { id: 'tasse', name: 'Tasse Gourmande', price: 13 },
             { id: 'solo', name: 'Plateau Solo', price: 17 },
             { id: 'duo', name: 'Plateau Duo', price: 28 },
-            { id: 'tasse', name: 'Tasse Gourmande', price: 13 }
+            { id: 'trilogie', name: 'Coffret Trilogie', price: 18 },
+            { id: 'calendrier', name: 'Calendrier de l\'Après', price: 27 }
         ];
 
         let currentStep = 1;
