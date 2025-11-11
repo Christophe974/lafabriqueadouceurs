@@ -1,6 +1,9 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 
+// Inclure la configuration Google Sheets
+require_once __DIR__ . '/google-sheets-config.php';
+
 // Récupérer les données JSON
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
@@ -85,6 +88,35 @@ try {
     @chmod($csvFile, 0644);
     
     error_log("CSV sauvegardé avec succès: $csvFile");
+
+    // ============================================================================
+    // 1.5 ENVOYER LES DONNÉES AU GOOGLE SHEET
+    // ============================================================================
+    
+    // Formater les produits pour Google Sheets
+    $productsStr = '';
+    if (isset($data['items']) && is_array($data['items'])) {
+        foreach ($data['items'] as $item) {
+            if ($productsStr) $productsStr .= ' | ';
+            $productsStr .= "{$item['quantity']}x {$item['name']}";
+        }
+    }
+
+    // Préparer les données pour le Google Sheet
+    $sheetRow = [
+        date('Y-m-d H:i:s'),                    // Timestamp
+        $firstname,                              // Prénom
+        $lastname,                               // Nom
+        $data['email'] ?? '',                    // Email
+        $data['phone'] ?? '',                    // Téléphone
+        $productsStr,                            // Produits
+        ($data['total'] ?? 0) . '€',             // Total
+        $data['date'] ?? '',                     // Date Retrait
+        $data['message'] ?? ''                   // Message Marque-page
+    ];
+
+    // Envoyer au Google Sheet
+    $googleSheets->appendRow(GOOGLE_SHEET_ID, $sheetRow);
 
     // ============================================================================
     // 2. ENVOYER L'EMAIL (optionnel - peut échouer)

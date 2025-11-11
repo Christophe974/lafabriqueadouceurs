@@ -736,7 +736,7 @@ $pageTitle = "Calendrier de l'Après - Commande";
                             </div>
                             <div class="product-name">Plateau Duo</div>
                             <div class="product-desc">2 tasses, pâte à tartiner, sablés, gianduja et bougie</div>
-                            <div class="product-price">28 €</div>
+                            <div class="product-price">25 €</div>
                             <div class="quantity-selector">
                                 <button type="button" class="quantity-btn" data-product="3">−</button>
                                 <input type="number" class="quantity-input" data-product="3" value="0" min="0">
@@ -766,7 +766,7 @@ $pageTitle = "Calendrier de l'Après - Commande";
                             </div>
                             <div class="product-name">Calendrier de l'Après</div>
                             <div class="product-desc">Du 25 au 31 décembre - Pâte à tartiner, sablés, praliné, gianduja...</div>
-                            <div class="product-price">27 €</div>
+                            <div class="product-price">28 €</div>
                             <div class="quantity-selector">
                                 <button type="button" class="quantity-btn" data-product="5">−</button>
                                 <input type="number" class="quantity-input" data-product="5" value="0" min="0">
@@ -885,9 +885,9 @@ $pageTitle = "Calendrier de l'Après - Commande";
             { id: 'biscuit', name: 'Mr Biscuit', price: 10 },
             { id: 'tasse', name: 'Tasse Gourmande', price: 13 },
             { id: 'solo', name: 'Plateau Solo', price: 17 },
-            { id: 'duo', name: 'Plateau Duo', price: 28 },
+            { id: 'duo', name: 'Plateau Duo', price: 25 },
             { id: 'trilogie', name: 'Coffret Trilogie', price: 18 },
-            { id: 'calendrier', name: 'Calendrier de l\'Après', price: 27 }
+            { id: 'calendrier', name: 'Calendrier de l\'Après', price: 28 }
         ];
 
         let currentStep = 1;
