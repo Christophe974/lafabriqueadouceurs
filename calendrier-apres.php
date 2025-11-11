@@ -1008,17 +1008,16 @@ $pageTitle = "Calendrier de l'Après - Commande";
                 if (result.success) {
                     // Message de succès
                     const form = document.getElementById('orderForm');
-                    const fullName = firstname + ' ' + lastname;
                     form.innerHTML = `
                         <div class="form-wrapper">
                             <div style="text-align: center; padding: 60px 20px;">
                                 <div style="font-size: 4em; margin-bottom: 20px;">🎉</div>
                                 <h2 style="color: #333; margin-bottom: 15px;">Commande validée!</h2>
                                 <p style="color: #666; font-size: 1.1em; margin-bottom: 30px;">
-                                    Merci ${fullName}! Votre commande a bien été reçue.
+                                    Merci <strong>${firstname}</strong>! Votre commande a bien été reçue.
                                 </p>
                                 <p style="color: #666; margin-bottom: 20px;">
-                                    📧 Un email de confirmation a été envoyé à:  <strong>${email}</strong>
+                                    📧 Un email de confirmation a été envoyé à : <strong>${email}</strong>
                                 </p>
                                 <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 30px 0; text-align: left; display: inline-block;">
                                     <p style="margin-bottom: 10px;"><strong>📋 Récapitulatif:</strong></p>
@@ -1026,6 +1025,32 @@ $pageTitle = "Calendrier de l'Après - Commande";
                                     <p style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 15px; color: #c41e3a; font-weight: bold;">Total: ${total}€</p>
                                     <p style="margin-top: 10px; color: #666;">📅 Retrait le <strong>${selectedDate} décembre</strong></p>
                                 </div>
+                                
+                                <!-- Coordonnées et réseaux sociaux -->
+                                <div style="background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 50%); color: white; padding: 30px 20px; border-radius: 8px; margin-top: 30px;">
+                                    <h3 style="margin: 0 0 20px 0; font-size: 1.1em;">La Fabrique à Douceurs</h3>
+                                    
+                                    <div style="margin-bottom: 20px; line-height: 1.8; font-size: 0.95em;">
+                                        <p style="margin: 5px 0;">📍 <strong>Adresse:</strong> Héricourt, Franche-Comté</p>
+                                        <p style="margin: 5px 0;">📞 <strong>Téléphone:</strong> 06 24 66 55 40</p>
+                                        <p style="margin: 5px 0;">📧 <strong>Email:</strong> lafabriqueadouceurs70@gmail.com</p>
+                                    </div>
+                                    
+                                    <div style="margin-bottom: 20px; line-height: 1.8; font-size: 0.95em; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px;">
+                                        <p style="margin: 5px 0;"><strong>⏰ Horaires:</strong></p>
+                                        <p style="margin: 5px 0;">Ouvert tous les jours sur rendez-vous</p>
+                                        <p style="margin: 5px 0; font-style: italic; font-size: 0.9em;">Retrait des commandes sur rendez-vous</p>
+                                    </div>
+                                    
+                                    <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px;">
+                                        <p style="margin: 0 0 10px 0; font-size: 0.95em;"><strong>Suivez-nous:</strong></p>
+                                        <div style="display: flex; justify-content: center; gap: 15px;">
+                                            <a href="https://www.facebook.com/profile.php?id=100095251458087" style="color: white; text-decoration: none; font-size: 0.9em;">f Facebook</a>
+                                            <a href="https://www.instagram.com/sweetnessbyvaness/" style="color: white; text-decoration: none; font-size: 0.9em;">📷 Instagram</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 <p style="color: #666; margin-top: 30px;">
                                     À bientôt à La Fabrique à Douceurs! 🎄✨
                                 </p>

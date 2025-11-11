@@ -209,7 +209,7 @@ try {
     // Envoyer l'email
     $headers = "MIME-Version: 1.0\r\n";
     $headers .= "Content-type: text/html; charset=UTF-8\r\n";
-    $headers .= "From: contact@lafabriqueadouceurs.fr\r\n";
+    $headers .= "From: lafabriqueadouceurs70@gmail.com\r\n";
     
     $emailSent = @mail($to, $subject, $html, $headers);
     
