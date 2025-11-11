@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Roue des Douceurs – Version Image</title>
+<meta name="theme-color" content="#b10f2e">
+<style>
+  :root{
+    --rouge:#B10F2E;
+    --or:#D4AF37;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial; background:#fff}
+  header{padding:16px 20px 8px; text-align:center;}
+  .brand{font-weight:800;letter-spacing:.3px;font-size:20px;color:var(--rouge);}
+  .subtitle{font-size:13px;color:#555;}
+  .card{background:#fff;margin:12px 16px;border-radius:18px;box-shadow:0 8px 24px rgba(0,0,0,.08);padding:16px;}
+  .wheel-wrap{display:flex;align-items:center;justify-content:center;padding:8px 0 12px; position:relative;}
+  .wheel{width:min(92vw,430px); aspect-ratio:1/1; transform:rotate(0deg); transition: transform 0s;}
+  .pin{
+    position:absolute; top:-2px; left:50%; transform:translateX(-50%);
+    width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-bottom:22px solid var(--or);
+    filter:drop-shadow(0 4px 6px rgba(0,0,0,.2));
+  }
+  .form-row{display:flex; gap:8px; margin:8px 0;}
+  input[type="text"],input[type="email"]{flex:1;padding:12px 14px;border-radius:12px;border:1px solid #ddd;font-size:15px;background:#fff;}
+  .btn{display:inline-block;width:100%;border:none;background:linear-gradient(180deg, var(--rouge), #850b22);color:#fff;padding:14px 16px;border-radius:14px;font-size:17px;font-weight:700;letter-spacing:.3px;cursor:pointer;transition:transform .08s ease, box-shadow .2s ease, opacity .2s ease;box-shadow:0 10px 18px rgba(177,15,46,.25);}
+  .btn[disabled]{opacity:.5; cursor:not-allowed; box-shadow:none;}
+  .cta-mini{display:inline-block;background:#fff;color:var(--rouge);border:2px solid var(--rouge);padding:10px 12px;border-radius:12px;font-weight:700;text-decoration:none;}
+  .legal{font-size:12px;color:#666;margin-top:8px}
+  .row{display:flex; gap:10px; flex-wrap:wrap}
+  .chip{font-size:12px;background:#f4f6f8;border-radius:999px;padding:6px 10px;color:#666}
+  .footer{text-align:center;font-size:12px;color:#7a7a7a; padding:16px 0 40px;}
+  .modal{position:fixed; inset:0; display:none; align-items:center; justify-content:center; padding:20px;background: rgba(0,0,0,.45); z-index:10;}
+  .modal.active{display:flex;}
+  .modal .box{width:min(520px, 92vw);background:linear-gradient(180deg,#fff,#fff8f8);border-radius:18px; padding:20px; text-align:center;box-shadow: 0 12px 30px rgba(0,0,0,.25);}
+  .prize-name{font-size:22px; font-weight:900; color:#222;}
+  .code{margin-top:10px;font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;font-size:22px; letter-spacing:2px;background:#111; color:#fff; padding:10px 14px; border-radius:12px; display:inline-block}
+  .celebrate{font-size:38px; margin:.1em 0}
+  .small{font-size:13px; color:#666}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">La Fabrique à Douceurs</div>
+  <div class="subtitle">🎄 Jeu spécial Marché de Noël · Héricourt</div>
+</header>
+
+<section class="card" aria-label="Jeu Roue des Douceurs (image)">
+  <div class="wheel-wrap">
+    <img id="wheelImg" class="wheel" src="wheel.png" alt="Roue des gains">
+    <div class="pin" aria-hidden="true"></div>
+  </div>
+
+  <div class="form-row">
+    <input id="name" type="text" inputmode="text" autocomplete="name" placeholder="Prénom">
+    <input id="email" type="email" inputmode="email" autocomplete="email" placeholder="Email (pour le tirage au sort)">
+  </div>
+  <label style="display:flex; align-items:center; gap:10px; font-size:13px; color:#444; margin:6px 2px 12px;">
+    <input id="consent" type="checkbox"> J’accepte de recevoir un e-mail si je gagne le tirage au sort.
+  </label>
+  <button id="spinBtn" class="btn">🎁 Tourner la roue</button>
+  <div class="legal">
+    Un gain immédiat à retirer au chalet de Vanessa (valable pendant le marché).<br>
+    <span id="limitNote" class="small">1 participation par appareil · En démo, ajouter <b>?demo=1</b> à l’URL pour réessayer.</span>
+  </div>
+  <div style="margin-top:10px" class="row">
+    <span class="chip">Sablé</span><span class="chip">Mini gianduja</span><span class="chip">-10% gourmandises</span><span class="chip">Tirage Coffret</span>
+  </div>
+</section>
+
+<section class="card">
+  <h3 style="margin:0 0 8px; font-size:18px;">Comment récupérer ton cadeau ?</h3>
+  <ol style="margin:0; padding-left:18px; line-height:1.5">
+    <li>Montre le code gagnant au <b>chalet La Fabrique à Douceurs</b>.</li>
+    <li>Vanessa valide et te remet ta douceur 🎅</li>
+  </ol>
+</section>
+
+<p class="footer">© La Fabrique à Douceurs · Version image sans base de données</p>
+
+<!-- Modal -->
+<div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="box">
+    <div class="celebrate">✨</div>
+    <div id="mTitle" class="prize-name">Bravo !</div>
+    <p id="mText" style="margin:.4em 0 1em; color:#444"></p>
+    <div id="redeemWrap" class="hidden">
+      <div class="small">Ton code à montrer au chalet :</div>
+      <div id="code" class="code">XXXX-XXXX</div>
+      <p class="small" style="margin-top:8px">Valable uniquement pendant ce marché de Noël.</p>
+    </div>
+    <div style="display:flex; gap:10px; justify-content:center; margin-top:12px">
+      <button id="closeBtn" class="cta-mini">Fermer</button>
+      <button id="addCal" class="cta-mini">📅 Rappel (iCal)</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ========= CONFIG ========= */
+const BRAND = "La Fabrique à Douceurs";
+const FORM_ENDPOINT = null; // démo locale
+
+const segments = [
+  { label: "Sablé offert", weight: 35, type: "gift" },
+  { label: "Mini gianduja", weight: 25, type: "gift" },
+  { label: "-10% gourmandises", weight: 25, type: "coupon" },
+  { label: "Tirage Coffret Noël", weight: 15, type: "raffle" }
+];
+const oneSpinKey = "douceurs_spin_2025_img";
+/* ========= UTIL ========= */
+const qs = (s)=>document.querySelector(s);
+function pickWeighted(items){
+  const total = items.reduce((a,b)=>a+b.weight,0);
+  let x = Math.random()*total;
+  for(const it of items){ if((x -= it.weight) <= 0) return it; }
+  return items[items.length-1];
+}
+function codeGen(){
+  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  const t = (Date.now()%1e8).toString(36).toUpperCase();
+  let r = ""; for(let i=0;i<6;i++) r += alphabet[Math.floor(Math.random()*alphabet.length)];
+  return (r.slice(0,3)+"-"+r.slice(3,6)+"-"+t.slice(-4));
+}
+function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
+/* ========= SPIN ========= */
+let spinning = false;
+let targetAngle = 0;
+let startTime = 0;
+let spinDuration = 4500; // ms
+const wheelImg = document.getElementById("wheelImg");
+function spin(){
+  if(spinning) return;
+  const params = new URLSearchParams(location.search);
+  const demo = params.get("demo")==="1";
+  if(localStorage.getItem(oneSpinKey) && !demo){
+    showModal("Déjà joué 🎄", "Merci pour ta participation ! Reviens nous voir au chalet 🤍", null);
+    return;
+  }
+  const picked = pickWeighted(segments);
+  const n = segments.length;
+  const aPer = (Math.PI*2)/n;
+  const segIdx = segments.indexOf(picked);
+  const segCenter = segIdx * aPer + aPer/2;
+  const pinAngle = Math.PI/2; // pin visuelle en haut
+  const rotations = 5 + Math.random()*2;
+  targetAngle = rotations*(Math.PI*2) + (segCenter + pinAngle);
+  startTime = performance.now();
+  spinning = true;
+  animateSpin(picked);
+}
+function animateSpin(picked){
+  function frame(t){
+    let k = Math.min(1, (t - startTime) / spinDuration);
+    let eased = easeOutCubic(k);
+    const deg = (targetAngle * eased) * 180/Math.PI;
+    wheelImg.style.transform = `rotate(${deg}deg)`;
+    if(k < 1){
+      requestAnimationFrame(frame);
+    }else{
+      spinning = false;
+      localStorage.setItem(oneSpinKey, "1");
+      const code = codeGen();
+      const name = qs("#name").value.trim();
+      const email = qs("#email").value.trim();
+      const consent = qs("#consent").checked;
+      if(FORM_ENDPOINT){
+        fetch(FORM_ENDPOINT, {
+          method:"POST", headers:{"Content-Type":"application/json"},
+          body: JSON.stringify({
+            brand: BRAND, name, email, consent,
+            prize: picked.label, type: picked.type,
+            code, ts: new Date().toISOString(),
+            utm: Object.fromEntries(new URLSearchParams(location.search))
+          })
+        }).catch(()=>{});
+      }
+      let msg = "";
+      if(picked.type==="gift"){ msg = `Bravo${name? " " + name:""} ! Tu as gagné :`; }
+      else if(picked.type==="coupon"){ msg = `Youpi${name? " " + name:""} ! Réduction immédiate :`; }
+      else { msg = `C'est noté${name? " " + name:""} ! Tu es inscrit(e) au tirage au sort :`; }
+      showModal(msg, picked.label, code, picked.type);
+    }
+  }
+  requestAnimationFrame(frame);
+}
+/* ========= MODAL ========= */
+const modal = qs("#modal");
+const mTitle = qs("#mTitle");
+const mText = qs("#mText");
+const codeEl = qs("#code");
+const redeemWrap = qs("#redeemWrap");
+function showModal(title, text, code, type){
+  mTitle.textContent = title;
+  mText.textContent = text;
+  if(code && type!=="raffle"){
+    redeemWrap.classList.remove("hidden");
+    codeEl.textContent = code;
+  }else{
+    redeemWrap.classList.add("hidden");
+  }
+  modal.classList.add("active");
+}
+qs("#closeBtn").addEventListener("click", ()=>modal.classList.remove("active"));
+modal.addEventListener("click",(e)=>{ if(e.target===modal) modal.classList.remove("active"); });
+/* ========= BUTTON ========= */
+qs("#spinBtn").addEventListener("click", ()=>{
+  const email = qs("#email").value.trim();
+  const consent = qs("#consent").checked;
+  if(consent && !email){
+    alert("Merci d’indiquer un email pour le tirage au sort.");
+    return;
+  }
+  spin();
+});
+/* ========= ADD CAL (rappel) ========= */
+qs("#addCal").addEventListener("click", ()=>{
+  const title = encodeURIComponent("Passer au chalet – retirer mon cadeau 🎄");
+  const start = new Date(); start.setHours(start.getHours()+1);
+  const end = new Date(start.getTime()+30*60000);
+  function fmt(d){ const pad = n=>String(n).padStart(2,"0"); return d.getUTCFullYear().toString()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+"T"+pad(d.getUTCHours())+pad(d.getUTCMinutes())+pad(d.getUTCSeconds())+"Z"; }
+  const text = encodeURIComponent("Montre le code au chalet de Vanessa (La Fabrique à Douceurs) pour récupérer ta douceur.");
+  const ics = `BEGIN:VCALENDAR
+VERSION:2.0
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+DTSTAMP:${fmt(new Date())}
+DTSTART:${fmt(start)}
+DTEND:${fmt(end)}
+SUMMARY:${title}
+DESCRIPTION:${text}
+END:VEVENT
+END:VCALENDAR`;
+  const blob = new Blob([ics], {type:"text/calendar;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a"); a.href = url; a.download = "rappel-chalet.ics"; document.body.appendChild(a); a.click(); URL.revokeObjectURL(url); a.remove();
+});
+</script>
+</body>
+</html>
