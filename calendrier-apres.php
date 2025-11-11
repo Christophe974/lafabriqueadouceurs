@@ -1042,6 +1042,20 @@ $pageTitle = "Calendrier de l'Après - Commande";
             }
         });
 
+        // Formatage en temps réel pour le Prénom (première lettre majuscule)
+        document.getElementById('firstname').addEventListener('blur', function() {
+            if (this.value) {
+                this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1).toLowerCase();
+            }
+        });
+
+        // Formatage en temps réel pour le Nom (tout en majuscule)
+        document.getElementById('lastname').addEventListener('blur', function() {
+            if (this.value) {
+                this.value = this.value.toUpperCase();
+            }
+        });
+
         // Initialisation
         createSnowflakes();
         generateDates();
