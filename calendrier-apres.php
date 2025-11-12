@@ -1124,14 +1124,19 @@ $pageTitle = "Calendrier de l'Après - Commande";
 
             // Envoyer au serveur
             try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 45000); // 45 secondes pour mobile
+                
                 const response = await fetch('process-order.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(formData)
+                    body: JSON.stringify(formData),
+                    signal: controller.signal
                 });
 
+                clearTimeout(timeoutId);
                 const result = await response.json();
 
                 if (result.success) {
@@ -1183,10 +1188,15 @@ $pageTitle = "Calendrier de l'Après - Commande";
                     window.scrollTo(0, 0);
                 } else {
                     alert('Erreur: ' + (result.message || 'Une erreur est survenue'));
+                    console.error('Erreur serveur:', result);
                 }
             } catch (error) {
-                console.error('Erreur:', error);
-                alert('Erreur lors de l\'envoi de la commande. Veuillez réessayer.');
+                console.error('Erreur complète:', error);
+                if (error.name === 'AbortError') {
+                    alert('Délai d\'attente dépassé. Veuillez vérifier votre connexion et réessayer.');
+                } else {
+                    alert('Erreur lors de l\'envoi de la commande. Veuillez réessayer.');
+                }
             }
         });
 

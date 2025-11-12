@@ -253,11 +253,12 @@ try {
     $headers = "MIME-Version: 1.0\r\n";
     $headers .= "Content-type: text/html; charset=UTF-8\r\n";
     $headers .= "From: lafabriqueadouceurs70@gmail.com\r\n";
+    $headers .= "Cc: lafabriqueadouceurs70@gmail.com\r\n";
     
     $emailSent = @mail($to, $subject, $html, $headers);
     
     if ($emailSent) {
-        error_log("Email envoyé à: $to");
+        error_log("Email envoyé à: $to et en copie à lafabriqueadouceurs70@gmail.com");
     } else {
         error_log("Erreur lors de l'envoi de l'email à: $to");
     }
